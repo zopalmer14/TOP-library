@@ -59,22 +59,40 @@ function displayBooks() {
 
         // create tiles to display each property of the books
         for (prop in book) {
+            let elem_type = 'button';
             let tile_info = '';
             switch(prop) {
                 case 'info':
-                    continue;
+                    tile_info = 'Remove';
+                    break;
                 case 'have_read':
                     tile_info = book[prop] ? 'already read' : 'not read yet'
                     break;
                 default:
+                    elem_type = 'div';
                     tile_info = book[prop];
             }
 
             // create a tile, assign the css styling, and add the property value
-            const tile = document.createElement('div');
+            const tile = document.createElement(elem_type);
             tile.style.cssText = tile_style; 
             tile.textContent = tile_info;
             book_container.appendChild(tile);
+
+            // add an eventListener to the read? button to toggle the value
+            if (prop === 'have_read') {
+                tile.addEventListener('click', (e) => {
+                    toggleRead(e.target);
+                });
+            }
+
+            // add an eventListener to the remove? button to remove the book
+            if (prop === 'info') {
+                tile.addEventListener('click', (e) => {
+                    // remove the book from the library
+                    e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+                });
+            } 
         }
     });
 }
