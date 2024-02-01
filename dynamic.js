@@ -39,15 +39,24 @@ let book_container_style = `
 `;
 
 let tile_style = `
-    background-color: white;
-    border: 0px;
     font-weight: bold;
+    border: 0px;
+    padding: 0px;
 
     display: flex;
     justify-content: center;
     align-items: center;
     flex: 1 1 0;
 `;
+
+// swap the color and text of the read? button when clicked
+function toggleRead(target) {
+    currentColor = target.style.backgroundColor;
+    currentText = target.textContent;
+
+    target.style.backgroundColor = currentColor === 'red' ? 'green' : 'red';
+    target.textContent = currentText === 'already read' ? 'have not read' : 'already read';
+}
 
 function displayBooks() {
     myLibrary.forEach((book) => {
@@ -60,12 +69,15 @@ function displayBooks() {
         for (prop in book) {
             let elem_type = 'button';
             let tile_info = '';
+            let tile_color = 'white';
             switch(prop) {
                 case 'info':
                     tile_info = 'Remove';
+                    tile_color = 'lightgray';
                     break;
                 case 'have_read':
                     tile_info = book[prop] ? 'already read' : 'not read yet'
+                    tile_color = book[prop] ? 'green' : 'red';
                     break;
                 default:
                     elem_type = 'div';
@@ -75,6 +87,7 @@ function displayBooks() {
             // create a tile, assign the css styling, and add the property value
             const tile = document.createElement(elem_type);
             tile.style.cssText = tile_style; 
+            tile.style.backgroundColor = tile_color;
             tile.textContent = tile_info;
             book_container.appendChild(tile);
 
