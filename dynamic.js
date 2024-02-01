@@ -32,17 +32,16 @@ addBookToLibrary('Reaper Man', 'Terry Pratchett', 453, false);
 
 let book_container_style = `
     display: flex;
+    gap: 4px;
 
-    background-color: lightgray;
-    margin: 2px 4px;
-    padding: 0px 2px;
+    background-color: #661100;
     flex: 1 1 0;
 `;
 
 let tile_style = `
     background-color: white;
+    border: 0px;
     font-weight: bold;
-    margin: 4px 2px;
 
     display: flex;
     justify-content: center;
