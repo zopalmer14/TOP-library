@@ -4,6 +4,9 @@
 const grid_container = document.querySelector('#grid_container');
 const add_button = document.querySelector('#add_button');
 
+const dialog = document.querySelector("dialog");
+const submit_button = document.querySelector("#submit_button");
+
 // LIBRARY FUNCTIONS
 
 const myLibrary = [];
@@ -27,6 +30,16 @@ addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, false);
 addBookToLibrary('The Way of Kings', 'Brandon Sanderson', 1093, true);
 addBookToLibrary('The Telling', 'Ursula K. Le Guin', 263, true);
 addBookToLibrary('Reaper Man', 'Terry Pratchett', 453, false);
+
+// ADD BOOK FUNCTIONALITY 
+
+add_button.addEventListener('click', () => {
+    dialog.showModal();
+});
+
+submit_button.addEventListener("click", () => {
+    dialog.close();
+});
 
 // CREATE/DISPLAY LIBRARY
 

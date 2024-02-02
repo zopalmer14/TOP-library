@@ -74,3 +74,66 @@ body {
     align-items: center;
     flex: 1 1 0;
 }
+
+/* FORM STYLING */
+
+dialog {
+    background-color: whitesmoke;
+    padding: 0px;
+    border: 0px;
+    border-radius: 10px;
+}
+
+dialog, #submit_button {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#book_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+
+    width: 25vh;
+    height: 35vh;
+    padding: 2vw;
+} 
+
+#book_form input {
+    padding: 1vh 0.5vw;
+    border: 0px;
+    border-radius: 5px;
+}
+
+#book_form input::placeholder {
+    color: gray;
+    font-size: 13.33px;
+}
+
+#book_form input:focus {
+    outline: 0px;
+    border: 1px solid blue;
+}
+
+#form_header {
+    font-size: 24px;
+}
+
+.form_row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#have_read {
+    accent-color: #74992E;
+    margin: 0 0 0 5px;
+}
+
+#submit_button {
+    background-color: #74992E;
+    border: 0px;
+    border-radius: 10px;
+    padding: 2vh 4vw;
+} 
