@@ -8,47 +8,45 @@
     <script src="dynamic.js" defer></script>
 </head>
 <body>
-    <div id="screen_container">
-        <dialog>
-            <form id="book_form">
-                <div class="form_row" id="form_header">Add New Book</div>
+    <dialog>
+        <form name="book-form" id="book-form">
+            <div class="form-row" id="form-header">Add New Book</div>
 
-                <div class="form_row">
-                    <input type="text" placeholder="Title" name="book_title" id="book_title"/>
-                </div>
-
-                <div class="form_row">
-                    <input type="text" placeholder="Author" name="book_author" id="author"/>
-                </div>
-
-                <div class="form_row">
-                    <input type="text" placeholder="Pages" name="num_pages" id="num_pages"/>
-                </div>
-
-                <div class="form_row">
-                    <label for="have_read">Have you read it?</label>
-                    <input type="checkbox" name="have_read" id="have_read" value="false"/>
-                </div>
-
-                <div class="form_row">
-                    <button id="submit_button">Submit</button>
-                </div>
-            </form>
-        </dialog>
-
-        <div id="title_container">
-            <div id="title">Virtual Library</div>
-            <button id="add_button">Add a New Book</button>
-        </div>
-
-        <div id="grid_container">
-            <div id="column_headers">
-                <div>Title</div>
-                <div>Author</div>
-                <div>Number of Pages</div>
-                <div>Read Status?</div>
-                <div>Remove?</div>
+            <div class="form-row">
+                <input type="text" placeholder="Title" name="book-title" id="book-title"/>
             </div>
+
+            <div class="form-row">
+                <input type="text" placeholder="Author" name="book-author" id="author"/>
+            </div>
+
+            <div class="form-row">
+                <input type="text" placeholder="Pages" name="num-pages" id="num-pages"/>
+            </div>
+
+            <div class="form-row">
+                <label for="have-read">Have you read it?</label>
+                <input type="checkbox" name="have-read" id="have-read" value="false"/>
+            </div>
+
+            <div class="form-row">
+                <button id="submit-button">Submit</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div id="title-container">
+        <div id="title">Virtual Library</div>
+        <button id="add-button">Add a New Book</button>
+    </div>
+
+    <div id="grid-container">
+        <div id="column-headers">
+            <div>Title</div>
+            <div>Author</div>
+            <div>Number of Pages</div>
+            <div>Read Status?</div>
+            <div>Remove?</div>
         </div>
     </div>
 </body>

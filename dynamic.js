@@ -123,3 +123,7 @@ function displayBooks() {
 }
 
 displayBooks();
+
+// FORM PROCESSING / HANDLING
+
+const add_book_form = document.querySelector('[name="book-form"]');
