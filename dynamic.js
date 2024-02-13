@@ -125,8 +125,6 @@ displayBooks();
 const add_book_form = document.querySelector('[name="book-form"]');
 
 add_book_form.addEventListener('submit', (event) => {
-    console.log(event.target.title.value);
-    console.log(event.target.author.value);
-    console.log(event.target.pages.value);
-    console.log(event.target.read.value);
+    // add the book to the library 
+    addBookToLibrary(event.target.title.value, event.target.author.value, event.target.pages.value, event.target.read.value);
 });
