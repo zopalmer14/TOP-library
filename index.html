@@ -9,24 +9,24 @@
 </head>
 <body>
     <dialog>
-        <form name="book-form" id="book-form">
+        <form method="dialog" name="book-form" id="book-form">
             <div class="form-row" id="form-header">Add New Book</div>
 
             <div class="form-row">
-                <input type="text" placeholder="Title" name="book-title" id="book-title"/>
+                <input required type="text" placeholder="Title" name="title" id="book-title"/>
             </div>
 
             <div class="form-row">
-                <input type="text" placeholder="Author" name="book-author" id="author"/>
+                <input required type="text" placeholder="Author" name="author" id="author"/>
             </div>
 
             <div class="form-row">
-                <input type="text" placeholder="Pages" name="num-pages" id="num-pages"/>
+                <input required type="text" placeholder="Pages" name="pages" id="num-pages"/>
             </div>
 
             <div class="form-row">
                 <label for="have-read">Have you read it?</label>
-                <input type="checkbox" name="have-read" id="have-read" value="false"/>
+                <input type="checkbox" name="read" id="have-read" value="false"/>
             </div>
 
             <div class="form-row">

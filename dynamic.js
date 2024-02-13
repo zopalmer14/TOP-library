@@ -1,11 +1,11 @@
 
 // USEFUL DOM REFERENCES
 
-const grid_container = document.querySelector('#grid_container');
-const add_button = document.querySelector('#add_button');
+const grid_container = document.querySelector('#grid-container');
+const add_button = document.querySelector('#add-button');
 
 const dialog = document.querySelector("dialog");
-const submit_button = document.querySelector("#submit_button");
+const submit_button = document.querySelector("#submit-button");
 
 // LIBRARY FUNCTIONS
 
@@ -35,10 +35,6 @@ addBookToLibrary('Reaper Man', 'Terry Pratchett', 453, false);
 
 add_button.addEventListener('click', () => {
     dialog.showModal();
-});
-
-submit_button.addEventListener("click", () => {
-    dialog.close();
 });
 
 // CREATE/DISPLAY LIBRARY
@@ -127,3 +123,10 @@ displayBooks();
 // FORM PROCESSING / HANDLING
 
 const add_book_form = document.querySelector('[name="book-form"]');
+
+add_book_form.addEventListener('submit', (event) => {
+    console.log(event.target.title.value);
+    console.log(event.target.author.value);
+    console.log(event.target.pages.value);
+    console.log(event.target.read.value);
+});
