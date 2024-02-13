@@ -93,6 +93,9 @@ body {
     border-radius: 999px;
 }
 
+#page-header #add-button:focus {
+    outline: none;
+}
 
 #page-header #add-button:hover {
     color: white;
@@ -128,6 +131,24 @@ body {
     justify-content: center;
     align-items: center;
     flex: 1 1 0;
+}
+
+#grid-container .book-container {
+    display: flex;
+    gap: 0.25rem;
+
+    background-color: var(--wood-accent);
+    flex: 1 1 0;
+}
+
+#grid-container .book-container .book-tile {
+    font-weight: bold;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 0;
+    border: none;
 }
 
 /* DIALOG / FORM STYLING */
