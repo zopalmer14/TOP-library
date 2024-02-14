@@ -95,59 +95,77 @@ const DOMController = function DOMController() {
         }
     };
 
-    return { displayBooks }
-}();
-
-// eventListeners & CONTROL FLOW 
-
-// function that makes the 'read' button dynamic / interactable
-function setupReadButton(button) {
-    button.addEventListener('click', (event) => {
-        // toggle the read value of the selected book
-        const index = event.target.parentNode.id;
-        libraryManager.toggleRead(index);
-
-        // also adjust the styling appropriately
+    const flipReadStyle = function flipReadStyle(target) {
         // grab the current values
-        currentColor = event.target.style.backgroundColor;
-        currentText = event.target.textContent;
+        currentColor = target.backgroundColor;
+        currentText = target.textContent;
     
         // swap the color and text of the 'read' button
-        event.target.style.backgroundColor = currentColor === 'red' ? 'green' : 'red';
-        event.target.textContent = currentText === 'already read' ? 'have not read' : 'already read';
-    });
-}
+        target.style.backgroundColor = currentColor === 'red' ? 'green' : 'red';
+        target.textContent = currentText === 'already read' ? 'have not read' : 'already read';
+    };
 
-// function that makes the 'remove' button dynamic / interactable
-function setupRemoveButton(button) {
-    button.addEventListener('click', (event) => {
-        // remove the book from the library
-        const index = event.target.parentNode.id;
-        libraryManager.removeBook(index);
-        
-        // now we must re-render the library (reorder the indices - DOM to backend link)
-        DOMController.displayBooks(libraryManager.getBooks());
-    });
-}
+    return { displayBooks, flipReadStyle }
+}();
 
-// useful DOM references
-const add_button = document.querySelector('#add-button');
-const dialog = document.querySelector("dialog");
-const add_book_form = document.querySelector('[name="book-form"]');
+// eventListeners & CONTROL FLOW
 
-// setup the add_book dialog / form 
-add_button.addEventListener('click', () => {
-    dialog.showModal();
-});
+const libraryInterface = function libraryInterface() {
+    // initialize and make the library dynamic / responsive
+    const initializeLibrary = function initializeLibrary() {
+        DOMController.displayBooks();
+        setupBookAddition();
+    };
 
-// setup the form processing / handling FORM PROCESSING / HANDLING
-add_book_form.addEventListener('submit', (event) => {
-    // add the book to the library 
-    libraryManager.addBook(event.target.title.value, event.target.author.value, event.target.pages.value, event.target.read.value);
+    // function that makes the 'read' button dynamic / interactable
+    function setupReadButton(button) {
+        button.addEventListener('click', (event) => {
+            // toggle the read value of the selected book
+            const index = event.target.parentNode.id;
+            libraryManager.toggleRead(index);
 
-    // now we must re-render the library (reorder the indices - DOM to backend link)
-    DOMController.displayBooks(libraryManager.getBooks());
-});
+            // adjust the styling appropriately
+            DOMController.flipReadStyle(event.target);
+        });
+    }
+
+    // function that makes the 'remove' button dynamic / interactable
+    function setupRemoveButton(button) {
+        button.addEventListener('click', (event) => {
+            // remove the book from the library
+            const index = event.target.parentNode.id;
+            libraryManager.removeBook(index);
+            
+            // now we must re-render the library (reorder the indices - DOM to backend link)
+            DOMController.displayBooks(libraryManager.getBooks());
+        });
+    }
+
+    // function that sets up the add book functionality
+    function setupBookAddition() {
+        // DOM references
+        const add_button = document.querySelector('#add-button');
+        const dialog = document.querySelector("dialog");
+        const add_book_form = document.querySelector('[name="book-form"]');
+
+        // setup the add_book dialog / form 
+        add_button.addEventListener('click', () => {
+            dialog.showModal();
+        });
+
+        // setup the form processing / handling FORM PROCESSING / HANDLING
+        add_book_form.addEventListener('submit', (event) => {
+            // add the book to the library 
+            libraryManager.addBook(event.target.title.value, event.target.author.value, event.target.pages.value, event.target.read.value);
+
+            // now we must re-render the library (reorder the indices - DOM to backend link)
+            DOMController.displayBooks(libraryManager.getBooks());
+        });
+    }
+
+    return { initializeLibrary }
+}();
+
 
 // debug / run script
 

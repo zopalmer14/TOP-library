@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="dynamic.js" defer></script>
+    <!-- <script src="dynamic.js" defer></script> -->
 </head>
 <body>
     <dialog>
@@ -35,19 +35,21 @@
         </form>
     </dialog>
 
-    <div id="page-header">
-        <div id="title">Virtual Library</div>
-        <button id="add-button">Add a New Book</button>
-    </div>
+    <div id="page-header">Virtual Library</div>
 
     <div id="grid-container">
-        <div id="column-headers">
-            <div>Title</div>
-            <div>Author</div>
-            <div>Number of Pages</div>
-            <div>Read Status?</div>
-            <div>Remove?</div>
+        <div class="book-container">
+            <div>The Way of Kings</div>
+            <div>By: Brandon Sanderson</div>
+            <div>Pages: 1083</div>
+            <div class="read-row">
+                <label for="">Read:</label>
+                <input type="checkbox" name="one" value="false">
+            </div>
+            <button>Remove</button>
         </div>
     </div>
+
+    <button id="add-book-button"><span>+</span>Add Book</button>
 </body>
 </html>

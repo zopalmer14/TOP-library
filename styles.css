@@ -56,6 +56,7 @@ table {
 :root {
     --green-accent: #74992E;
     --wood-accent: #661100;
+    --gray-accent: whitesmoke;
 }
 
 body {
@@ -68,87 +69,91 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 2rem;
     height: 100vh;
 }
 
 #page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    width: 60vh;
-    margin-bottom: 2rem;
-}
-
-#page-header #title {
-    color: green;
+    color: var(--green-accent);
     font-weight: bold;
     font-size: 2.5rem;
 }
 
-#page-header #add-button {
-    padding: 0.25rem 1rem;
+#grid-container {
+    display: grid;
+    grid-template: minmax(200px, 1fr) / repeat(auto-fit, minmax(150px, 1fr));
+    grid-auto-rows: minmax(200px, 1fr);
+
+    width: clamp(150px, 60%, 900px);
+    border: 0.25rem solid var(--wood-accent);
+    border-radius: 10px;
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+#grid-container .book-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+
+    background-color: var(--gray-accent);
+    padding: 1rem;
+    box-shadow: 1px 1px 1px gray;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+#grid-container .book-container .read-row {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+#grid-container .book-container button {
+    width: 100%;
+    padding: 0.5rem 0;
+    border: 1px solid red;
+    border-radius: 10px;
+}
+
+#grid-container .book-container button:hover {
+    background-color: red;
+    color: black;
+    transition: 0.5s;
+}
+
+#grid-container .book-container input {
+    accent-color: var(--green-accent);
+    margin: 1px 0 0 0;
+}
+
+#add-book-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+
+    font-size: 1.25rem;
+    padding: 0.5rem 2rem;
     background-color: white;
     border: 2px solid var(--green-accent);
     border-radius: 999px;
 }
 
-#page-header #add-button:focus {
+#add-book-button:focus {
     outline: none;
 }
 
-#page-header #add-button:hover {
+#add-book-button:hover {
     color: white;
     background-color: var(--green-accent);
     transition: 0.5s;
 }
 
-#grid-container {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-
-    background-color: var(--wood-accent);
-    width: 80vh;
-    height: 80vh;
-    padding: 0.25rem;
-    gap: 0.25rem;
-}
-
-#grid-container #column-headers {
-    display: flex;
-    gap: 0.25rem;
-
-    background-color: var(--wood-accent);
-    flex: 1 1 0;
-}
-
-#grid-container #column-headers > div {
-    background-color: white;
-    font-weight: bold;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1 1 0;
-}
-
-#grid-container .book-container {
-    display: flex;
-    gap: 0.25rem;
-
-    background-color: var(--wood-accent);
-    flex: 1 1 0;
-}
-
-#grid-container .book-container .book-tile {
-    font-weight: bold;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1 1 0;
-    border: none;
+#add-book-button > span {
+    font-size: 2rem;
 }
 
 /* DIALOG / FORM STYLING */
