@@ -55,7 +55,7 @@ table {
 
 :root {
     --green-accent: #74992E;
-    --wood-accent: #661100;
+    --wood-accent: #443022;
     --gray-accent: whitesmoke;
 }
 
@@ -112,7 +112,9 @@ input.read-input {
     grid-template: minmax(250px, 1fr) / repeat(auto-fit, minmax(150px, 1fr));
     grid-auto-rows: minmax(250px, 1fr);
 
-    width: clamp(150px, 60%, 900px);
+    min-width: 300px;
+    max-width: 60%;
+    background: radial-gradient(ellipse at center, #C69C6D 0%, #754224 100%);
     border: 0.25rem solid var(--wood-accent);
     border-radius: 5px;
     padding: 0.5rem;
