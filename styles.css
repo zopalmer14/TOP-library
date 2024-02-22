@@ -99,10 +99,61 @@ input.read-input {
     margin: 0;
 }
 
-#page-header {
+/* HEADER */
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    width: clamp(250px, 50%, 750px);
+}
+
+#header > h1 {
+    font-size: 2.5rem;
     color: var(--green-accent);
     font-weight: bold;
-    font-size: 2.5rem;
+}
+
+#header #add-book-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+
+    padding: 0.5rem 1rem;
+    background-color: white;
+    border: 1px solid var(--green-accent);
+    border-radius: 5px;
+
+    color: var(--green-accent);
+    font-size: 1rem;
+    transition: 0.5s ease-in-out;
+}
+
+#header #add-book-button:focus {
+    outline: none;
+}
+
+#header #add-book-button:hover {
+    color: white;
+    background-color: var(--green-accent);
+    cursor: pointer;
+}
+
+#header #add-book-button > span {
+    box-sizing: border-box;
+    width: 20px;
+    line-height: 18px;
+
+    color: var(--green-accent);
+    border: 1px solid var(--green-accent);
+    border-radius: 50%;
+    transition: 0.5s ease-in-out;
+}
+
+#header #add-book-button:hover > span {
+    color: white;
+    border-color: white;
+    transform: rotateZ(360deg);
 }
 
 /* LIBRARY GRID */
@@ -159,36 +210,6 @@ input.read-input {
     background-color: red;
     cursor: pointer;
     transition: ease-in-out .5s;
-}
-
-/* ADD BOOK BUTTON */
-
-#add-book-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.25rem;
-
-    font-size: 1.25rem;
-    padding: 0.5rem 2rem;
-    background-color: white;
-    border: 2px solid var(--green-accent);
-    border-radius: 999px;
-}
-
-#add-book-button:focus {
-    outline: none;
-}
-
-#add-book-button:hover {
-    color: white;
-    background-color: var(--green-accent);
-    cursor: pointer;
-    transition: 0.5s;
-}
-
-#add-book-button > span {
-    font-size: 2rem;
 }
 
 /* DIALOG / FORM STYLING */
