@@ -73,15 +73,43 @@ body {
     height: 100vh;
 }
 
+label.read-label {
+    border-radius: 5px;
+}
+
+label.read-label:hover {
+    cursor: pointer;
+}
+
+label.read-label:has(input:checked) {
+    background-color: var(--green-accent);
+    transition: 0.5s;
+}
+
+label.read-label:has(input:not(:checked)) {
+    background-color: red;
+    transition: 0.5s;
+}
+
+input.read-input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    margin: 0;
+}
+
 #page-header {
     color: var(--green-accent);
     font-weight: bold;
     font-size: 2.5rem;
 }
 
+/* LIBRARY GRID */
+
 #grid-container {
     display: grid;
-    grid-template: minmax(200px, 1fr) / repeat(auto-fit, minmax(150px, 1fr));
+    grid-template: minmax(250px, 1fr) / repeat(auto-fit, minmax(150px, 1fr));
     grid-auto-rows: minmax(250px, 1fr);
 
     width: clamp(150px, 60%, 900px);
@@ -98,7 +126,7 @@ body {
     gap: 0.5rem;
 
     background-color: var(--gray-accent);
-    padding: 0.5rem;
+    padding: 1rem;
     box-shadow: 1px 1px 1px gray;
     border: 1px solid black;
     border-radius: 5px;
@@ -111,31 +139,12 @@ body {
     text-align: center;
 }
 
+#grid-container .book-container > div {
+    margin-bottom: 0.5rem;
+}
+
 #grid-container .book-container label {
     padding: 0.5rem 0;
-    border-radius: 5px;
-}
-
-#grid-container .book-container label:hover {
-    cursor: pointer;
-}
-
-#grid-container .book-container label:has(input:checked) {
-    background-color: var(--green-accent);
-    transition: 0.5s;
-}
-
-#grid-container .book-container label:has(input:not(:checked)) {
-    background-color: red;
-    transition: 0.5s;
-}
-
-#grid-container .book-container input {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
-    margin: 0;
 }
 
 #grid-container .book-container button {
@@ -189,23 +198,35 @@ dialog {
     border-radius: 5px;
 }
 
-dialog, #submit-button {
-    font-weight: bold;
+dialog::backdrop {
+    backdrop-filter: blur(0.25rem);
 }
 
 #book-form {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: stretch;
+    gap: 1rem;
 
     width: 25vh;
-    height: 35vh;
-    padding: 1rem;
+    height: 30vh;
+    padding: 2rem;
 } 
 
+#book-form > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#book-form #form-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
 #book-form input {
-    padding: 0.5rem 0.25rem;
+    padding: 0.5rem;
     border: 1px solid white;
     border-radius: 5px;
 }
@@ -220,24 +241,19 @@ dialog, #submit-button {
     border: 1px solid blue;
 }
 
-#book-form #form-header {
-    font-size: 1.25rem;
-}
-
-#book-form .form-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#book-form #have-read {
-    accent-color: var(--green-accent);
-    margin: 0 0 0 5px;
+#book-form label, #book-form button {
+    padding: 1rem 0;
+    font-weight: bold;
 }
 
 #book-form #submit-button {
-    background-color: var(--green-accent);
-    border: 0px;
+    background-color: whitesmoke;
+    border: 1px solid var(--green-accent);
     border-radius: 5px;
-    padding: 1rem 2rem;
+} 
+
+#book-form #submit-button:hover {
+    background-color: var(--green-accent);
+    cursor: pointer;
+    transition: 0.5s;
 } 

@@ -94,13 +94,15 @@ const DOMController = function DOMController() {
                 } else { // otherwise
                     // if it's 'have_read' - create a label that acts as a container for a checkbox within it
                     const read_label = document.createElement('label');
+                    read_label.classList.add('read-label');
                     read_label.textContent = book.displayProp(prop);
 
                     // add the eventListener that handles toggling the 'read' value in the backend
-                    libraryInterface.setupReadButton(read_label);
+                    libraryInterface.setupReadCheckbox(read_label);
 
                     // create the checkbox
                     const read_checkbox = document.createElement('input');
+                    read_checkbox.classList.add('read-input');
                     read_checkbox.type = 'checkbox';
 
                     // check the checkbox if the 'have_read' value is true
@@ -156,11 +158,13 @@ const libraryInterface = function libraryInterface() {
         });
     }
 
-    // function that makes the 'read' button dynamic / interactable
-    const setupReadButton = function setupReadButton(button) {
-        button.addEventListener('click', (event) => {
-            // toggle the read value of the selected book -- two levels up the DOM tree
-            const index = event.target.parentNode.parentNode.dataset.index;
+    // function that makes the 'read' checkbox dynamic / interactable
+    const setupReadCheckbox = function setupReadCheckbox(checkbox) {
+        checkbox.addEventListener('change', (event) => {
+            // toggle the read value of the selected book -- one level up the DOM tree
+            const index = event.currentTarget.parentNode.dataset.index;
+            console.log(event.currentTarget);
+            console.log(index);
             libraryManager.toggleRead(index);
         });
     };
@@ -177,7 +181,7 @@ const libraryInterface = function libraryInterface() {
         });
     };
 
-    return { initializeLibrary, setupReadButton, setupRemoveButton }
+    return { initializeLibrary, setupReadCheckbox, setupRemoveButton }
 }();
 
 

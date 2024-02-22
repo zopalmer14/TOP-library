@@ -10,28 +10,14 @@
 <body>
     <dialog>
         <form method="dialog" name="book-form" id="book-form">
-            <div class="form-row" id="form-header">Add New Book</div>
-
-            <div class="form-row">
-                <input required type="text" placeholder="Title" name="title" id="book-title"/>
-            </div>
-
-            <div class="form-row">
-                <input required type="text" placeholder="Author" name="author" id="author"/>
-            </div>
-
-            <div class="form-row">
-                <input required type="text" placeholder="Pages" name="pages" id="num-pages"/>
-            </div>
-
-            <div class="form-row">
-                <label for="have-read">Have you read it?</label>
-                <input type="checkbox" name="read" id="have-read" value="false"/>
-            </div>
-
-            <div class="form-row">
-                <button id="submit-button">Submit</button>
-            </div>
+            <div id="form-header">Add New Book</div>
+            <input required type="text" placeholder="Title" name="title" id="book-title"/>
+            <input required type="text" placeholder="Author" name="author" id="author"/>
+            <input required type="text" placeholder="Pages" name="pages" id="num-pages"/>
+            <label class="read-label" for="have-read">Read
+                <input class="read-input" type="checkbox" name="read" id="have-read"/>
+            </label>
+            <button id="submit-button">Submit</button>
         </form>
     </dialog>
 
