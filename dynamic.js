@@ -14,7 +14,22 @@ const libraryManager = function libraryManager() {
         this.author = author;
         this.num_pages = num_pages;
         this.have_read = have_read;
-        this.flipRead = () => this.have_read = (this.have_read) ? false : true; 
+        this.flipRead = () => this.have_read = (this.have_read) ? false : true;
+        
+        this.displayProp = (prop) => {
+            switch(prop) {
+                case 'title':
+                    return this[prop];
+                case 'author':
+                    return `By: ${this[prop]}`;
+                case 'num_pages':
+                    return `Pages: ${this[prop]}`;
+                case 'have_read':
+                    return 'Read';
+                case 'flipRead':
+                    return 'Remove';
+            }
+        };
     }
 
     // function to add a new book to the library
@@ -50,62 +65,50 @@ const DOMController = function DOMController() {
         for (let i = 0; i < books.length; i++) {
             const book = books[i];
 
-            // create a horizontal flex-container to hold the book's info
+            // create a flex-container to hold the book's info
             const book_container = document.createElement('div');
             book_container.classList.add('book-container');
-            book_container.id = i;
-            grid_container.appendChild(book_container);
+            book_container.dataset.index = i;
     
-            // create tiles to display each property of the books
+            // create divs to display each property of the books
             for (prop in book) {
-                let elem_type = 'button';
-                let tile_info = '';
-                let tile_color = 'white';
-                switch(prop) {
-                    case 'flipRead':
-                        tile_info = 'Remove';
-                        tile_color = 'lightgray';
-                        break;
-                    case 'have_read':
-                        tile_info = book[prop] ? 'already read' : 'not read yet'
-                        tile_color = book[prop] ? 'green' : 'red';
-                        break;
-                    default:
-                        elem_type = 'div';
-                        tile_info = book[prop];
-                }
-    
-                // create a tile, assign the css styling, and add the property value
+                // create a new element to represent the property
+                const elem_type = prop === 'flipRead' ? 'button' : 'div';
                 const tile = document.createElement(elem_type);
-                tile.classList.add('book-tile'); 
-                tile.style.backgroundColor = tile_color;
-                tile.textContent = tile_info;
-                book_container.appendChild(tile);
-    
-                // add an eventListener to the 'read' button to toggle the value
-                if (prop === 'have_read') {
-                    setupReadButton(tile);
+
+                // add the appropriate text content based on the property -- unless it's 'have_read'
+                if (prop !== 'have_read') {
+                    tile.textContent = book.displayProp(prop);
+                } else { // otherwise
+                    // if it's 'have_read' add the additional label and checkbox within the div
+                    const read_label = document.createElement('label');
+                    read_label.textContent = book.displayProp(prop);
+
+                    const read_checkbox = document.createElement('input');
+                    read_checkbox.type = 'checkbox';
+
+                    tile.appendChild(read_label);
+                    tile.appendChild(read_checkbox);
+
+                    // also add the eventListener that handles toggling the 'read' value in the backend
+                    libraryInterface.setupReadButton(tile);
                 }
     
-                // add an eventListener to the 'remove' button to remove the book
+                // if it's 'flipRead' -- the last property -- add the eventListener that handles removing the book
                 if (prop === 'flipRead') {
-                    setupRemoveButton(tile);
+                    libraryInterface.setupRemoveButton(tile);
                 } 
+
+                // append the tile to the book_container
+                book_container.appendChild(tile);
             }
+
+            // append the book_container to the library grid
+            grid_container.appendChild(book_container);
         }
     };
 
-    const flipReadStyle = function flipReadStyle(target) {
-        // grab the current values
-        currentColor = target.backgroundColor;
-        currentText = target.textContent;
-    
-        // swap the color and text of the 'read' button
-        target.style.backgroundColor = currentColor === 'red' ? 'green' : 'red';
-        target.textContent = currentText === 'already read' ? 'have not read' : 'already read';
-    };
-
-    return { displayBooks, flipReadStyle }
+    return { displayBooks }
 }();
 
 // eventListeners & CONTROL FLOW
@@ -113,65 +116,90 @@ const DOMController = function DOMController() {
 const libraryInterface = function libraryInterface() {
     // initialize and make the library dynamic / responsive
     const initializeLibrary = function initializeLibrary() {
-        DOMController.displayBooks();
+        DOMController.displayBooks(libraryManager.getBooks());
         setupBookAddition();
     };
-
-    // function that makes the 'read' button dynamic / interactable
-    function setupReadButton(button) {
-        button.addEventListener('click', (event) => {
-            // toggle the read value of the selected book
-            const index = event.target.parentNode.id;
-            libraryManager.toggleRead(index);
-
-            // adjust the styling appropriately
-            DOMController.flipReadStyle(event.target);
-        });
-    }
-
-    // function that makes the 'remove' button dynamic / interactable
-    function setupRemoveButton(button) {
-        button.addEventListener('click', (event) => {
-            // remove the book from the library
-            const index = event.target.parentNode.id;
-            libraryManager.removeBook(index);
-            
-            // now we must re-render the library (reorder the indices - DOM to backend link)
-            DOMController.displayBooks(libraryManager.getBooks());
-        });
-    }
 
     // function that sets up the add book functionality
     function setupBookAddition() {
         // DOM references
-        const add_button = document.querySelector('#add-button');
+        const add_book_button = document.querySelector('#add-book-button');
         const dialog = document.querySelector("dialog");
-        const add_book_form = document.querySelector('[name="book-form"]');
+        const add_book_form = document.querySelector('#book-form');
 
         // setup the add_book dialog / form 
-        add_button.addEventListener('click', () => {
+        add_book_button.addEventListener('click', () => {
             dialog.showModal();
         });
 
         // setup the form processing / handling FORM PROCESSING / HANDLING
         add_book_form.addEventListener('submit', (event) => {
             // add the book to the library 
-            libraryManager.addBook(event.target.title.value, event.target.author.value, event.target.pages.value, event.target.read.value);
+            libraryManager.addBook (
+                event.target.title.value, 
+                event.target.author.value, 
+                event.target.pages.value, 
+                event.target.read.value
+            );
 
-            // now we must re-render the library (reorder the indices - DOM to backend link)
+            // now we must re-render the library 
             DOMController.displayBooks(libraryManager.getBooks());
         });
     }
 
-    return { initializeLibrary }
+    // function that makes the 'read' button dynamic / interactable
+    const setupReadButton = function setupReadButton(button) {
+        button.addEventListener('click', (event) => {
+            // toggle the read value of the selected book -- two levels up the DOM tree
+            const index = event.target.parentNode.parentNode.dataset.index;
+            libraryManager.toggleRead(index);
+        });
+    };
+
+    // function that makes the 'remove' button dynamic / interactable
+    const setupRemoveButton = function setupRemoveButton(button) {
+        button.addEventListener('click', (event) => {
+            // remove the book -- one level up the DOM tree -- from the library
+            const index = event.target.parentNode.dataset.index;
+            libraryManager.removeBook(index);
+            
+            // now we must re-render the library
+            DOMController.displayBooks(libraryManager.getBooks());
+        });
+    };
+
+    return { initializeLibrary, setupReadButton, setupRemoveButton }
 }();
 
 
 // debug / run script
 
-libraryManager.addBook('The Hobbit', 'J.R.R. Tolkien', 295, false);
-libraryManager.addBook('The Way of Kings', 'Brandon Sanderson', 1093, true);
-libraryManager.addBook('The Telling', 'Ursula K. Le Guin', 263, true);
-libraryManager.addBook('Reaper Man', 'Terry Pratchett', 453, false);
+libraryManager.addBook (
+    'The Hobbit',
+    'J.R.R. Tolkien', 
+    295, 
+    false
+);
 
-DOMController.displayBooks(libraryManager.getBooks());
+libraryManager.addBook (
+    'The Way of Kings', 
+    'Brandon Sanderson', 
+    1093, 
+    true
+);
+
+libraryManager.addBook (
+    'The Telling', 
+    'Ursula K. Le Guin', 
+    263, 
+    true
+);
+
+libraryManager.addBook (
+    'Reaper Man', 
+    'Terry Pratchett', 
+    453, 
+    false
+);
+
+libraryInterface.initializeLibrary();

@@ -95,7 +95,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     gap: 0.5rem;
 
     background-color: var(--gray-accent);
@@ -105,10 +104,10 @@ body {
     border-radius: 10px;
 }
 
-#grid-container .book-container .read-row {
+#grid-container .book-container > div {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    justify-content: center;
 }
 
 #grid-container .book-container button {
@@ -128,6 +127,8 @@ body {
     accent-color: var(--green-accent);
     margin: 1px 0 0 0;
 }
+
+/* ADD BOOK BUTTON */
 
 #add-book-button {
     display: flex;
