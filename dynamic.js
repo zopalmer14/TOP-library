@@ -70,37 +70,46 @@ const DOMController = function DOMController() {
             book_container.classList.add('book-container');
             book_container.dataset.index = i;
     
-            // create divs to display each property of the books
+            // create elements to display each property of the books
             for (prop in book) {
-                // create a new element to represent the property
-                const elem_type = prop === 'flipRead' ? 'button' : 'div';
-                const tile = document.createElement(elem_type);
+                // if it's 'displayProp' -- the last property -- THEN SKIP
+                if (prop === 'displayProp') {
+                    continue;
+                } 
 
-                // add the appropriate text content based on the property -- unless it's 'have_read'
+                // create a div/button and add the appropriate text content based on the property -- unless it's 'have_read'
                 if (prop !== 'have_read') {
+                    // create a new element to represent the property
+                    const elem_type = prop === 'flipRead' ? 'button' : 'div';
+                    const tile = document.createElement(elem_type);
+
+                    // if it's 'flipRead', add the eventListener that handles removing the book
+                    if (prop === 'flipRead') {
+                        libraryInterface.setupRemoveButton(tile);
+                    } 
+
+                    // add the property info and append to the book container
                     tile.textContent = book.displayProp(prop);
+                    book_container.appendChild(tile);
                 } else { // otherwise
-                    // if it's 'have_read' add the additional label and checkbox within the div
+                    // if it's 'have_read' - create a label that acts as a container for a checkbox within it
                     const read_label = document.createElement('label');
                     read_label.textContent = book.displayProp(prop);
 
+                    // add the eventListener that handles toggling the 'read' value in the backend
+                    libraryInterface.setupReadButton(read_label);
+
+                    // create the checkbox
                     const read_checkbox = document.createElement('input');
                     read_checkbox.type = 'checkbox';
 
-                    tile.appendChild(read_label);
-                    tile.appendChild(read_checkbox);
+                    // check the checkbox if the 'have_read' value is true
+                    read_checkbox.checked = book[prop] ? true : false;
 
-                    // also add the eventListener that handles toggling the 'read' value in the backend
-                    libraryInterface.setupReadButton(tile);
+                    // append the checkbox to the label, then the label to the book_container
+                    read_label.appendChild(read_checkbox);
+                    book_container.appendChild(read_label);
                 }
-    
-                // if it's 'flipRead' -- the last property -- add the eventListener that handles removing the book
-                if (prop === 'flipRead') {
-                    libraryInterface.setupRemoveButton(tile);
-                } 
-
-                // append the tile to the book_container
-                book_container.appendChild(tile);
             }
 
             // append the book_container to the library grid
