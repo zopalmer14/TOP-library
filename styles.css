@@ -113,7 +113,12 @@ input.read-input {
     font-weight: bold;
 }
 
-#header #add-book-button {
+#header > div {
+    display: flex;
+    gap: 1rem;
+}
+
+#header button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -125,35 +130,53 @@ input.read-input {
     border-radius: 5px;
 
     color: var(--green-accent);
-    font-size: 1rem;
+    font-size: 14px;
+    line-height: 14px;
     transition: 0.5s ease-in-out;
+}
+
+#header button:hover {
+    color: white;
+    background-color: var(--green-accent);
+    cursor: pointer;
+}
+
+#header button span.material-icons.md-18 {
+    font-size: 18px;
 }
 
 #header #add-book-button:focus {
     outline: none;
 }
 
-#header #add-book-button:hover {
-    color: white;
-    background-color: var(--green-accent);
-    cursor: pointer;
-}
-
-#header #add-book-button > span {
+#header #add-book-button > div {
     box-sizing: border-box;
+    position: relative;
     width: 20px;
-    line-height: 18px;
+    height: 20px;
 
-    color: var(--green-accent);
     border: 1px solid var(--green-accent);
     border-radius: 50%;
     transition: 0.5s ease-in-out;
 }
 
-#header #add-book-button:hover > span {
-    color: white;
+#header #add-book-button:hover > div {
     border-color: white;
     transform: rotateZ(360deg);
+}
+
+#header #add-book-button span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    color: var(--green-accent);
+    transition: 0.5s ease-in-out;
+}
+
+#header #add-book-button:hover span {
+    color: white;
 }
 
 /* LIBRARY GRID */
