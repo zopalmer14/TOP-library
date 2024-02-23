@@ -61,6 +61,26 @@ const DOMController = function DOMController() {
         // remove all children in case of re-render
         grid_container.replaceChildren();
 
+        // grab the sort status and sort the books by their number of pages if true
+        const sort_input = document.querySelector('#sort-status');
+        const sort_status = sort_input.checked;
+
+        // sorting function
+        const sortByPageNum = function sortByPageNum(bookA, bookB) {
+            if (bookA.num_pages < bookB.num_pages) {
+                return -1;
+            } else if (bookA.num_pages > bookB.num_pages) {
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+
+        if (sort_status) {
+            // reverse to put in descending order
+            books = books.toSorted(sortByPageNum).reverse();
+        }
+
         // iterate over the books and create a visual representation of each
         for (let i = 0; i < books.length; i++) {
             const book = books[i];
@@ -129,6 +149,7 @@ const libraryInterface = function libraryInterface() {
     const initializeLibrary = function initializeLibrary() {
         DOMController.displayBooks(libraryManager.getBooks());
         setupBookAddition();
+        setupBookSorting();
     };
 
     // function that sets up the add book functionality
@@ -150,10 +171,21 @@ const libraryInterface = function libraryInterface() {
                 event.target.title.value, 
                 event.target.author.value, 
                 event.target.pages.value, 
-                event.target.read.value
+                event.target.read.checked
             );
 
             // now we must re-render the library 
+            DOMController.displayBooks(libraryManager.getBooks());
+        });
+    }
+
+    // function that re-renders books when the sorting options is changed / toggled
+    function setupBookSorting() {
+        // DOM references
+        const sort_input = document.querySelector('#sort-status');
+
+        // if the sort option is changed we must re-render the library
+        sort_input.addEventListener('change', () => {
             DOMController.displayBooks(libraryManager.getBooks());
         });
     }

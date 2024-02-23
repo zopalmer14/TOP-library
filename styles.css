@@ -104,7 +104,7 @@ input.read-input {
 #header {
     display: flex;
     justify-content: space-between;
-    width: clamp(250px, 50%, 750px);
+    width: clamp(250px, 50%, 700px);
 }
 
 #header > h1 {
@@ -209,7 +209,7 @@ input.read-input {
     grid-auto-rows: minmax(250px, 1fr);
 
     min-width: 300px;
-    max-width: 60%;
+    max-width: 750px;
     background: radial-gradient(ellipse at center, #C69C6D 0%, #754224 100%);
     border: 0.25rem solid var(--wood-accent);
     border-radius: 5px;
