@@ -62,7 +62,7 @@ table {
 body {
     background-color: white;
     color: black;
-    font-family: Garamond;
+    font-family: Garamond, serif;
     font-size: 16px;
 
     display: flex;
@@ -118,7 +118,7 @@ input.read-input {
     gap: 1rem;
 }
 
-#header button {
+#header label, #header #add-book-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -130,19 +130,41 @@ input.read-input {
     border-radius: 5px;
 
     color: var(--green-accent);
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     line-height: 14px;
     transition: 0.5s ease-in-out;
 }
 
-#header button:hover {
+#header label:hover {
     color: white;
-    background-color: var(--green-accent);
+    background-color: rgba(116, 153, 46, 0.5);
+    border-color: rgba(116, 153, 46, 0.5);
+    user-select: none;
     cursor: pointer;
 }
 
-#header button span.material-icons.md-18 {
+#header label:has(input:checked) {
+    color: white;
+    background-color: var(--green-accent);
+}
+
+#header label span.material-icons.md-18 {
     font-size: 18px;
+}
+
+#header input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    margin: 0;
+}
+
+#header #add-book-button:hover {
+    color: white;
+    background-color: var(--green-accent);
+    cursor: pointer;
 }
 
 #header #add-book-button:focus {
