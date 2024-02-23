@@ -65,7 +65,7 @@ const DOMController = function DOMController() {
         const sort_input = document.querySelector('#sort-status');
         const sort_status = sort_input.checked;
 
-        // sorting function
+        // function to sort the books by the number of pages
         const sortByPageNum = function sortByPageNum(bookA, bookB) {
             if (bookA.num_pages < bookB.num_pages) {
                 return -1;
@@ -76,9 +76,23 @@ const DOMController = function DOMController() {
             }
         };
 
+        // function to sort the books alphabetically
+        const sortAlphabetically = function sortAlphabetically(bookA, bookB) {
+            if (bookA.title < bookB.title) {
+                return -1;
+            } else if (bookA.title > bookB.title) {
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+
         if (sort_status) {
             // reverse to put in descending order
-            books = books.toSorted(sortByPageNum).reverse();
+            books.sort(sortByPageNum).reverse();
+        } else {
+            // otherwise simply sort alphabetically
+            books.sort(sortAlphabetically);
         }
 
         // iterate over the books and create a visual representation of each
