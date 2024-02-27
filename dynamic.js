@@ -61,9 +61,13 @@ const DOMController = function DOMController() {
         // remove all children in case of re-render
         grid_container.replaceChildren();
 
-        // grab the sort status and sort the books by their number of pages if true
-        const sort_input = document.querySelector('#sort-status');
-        const sort_status = sort_input.checked;
+        // grab the sort input and determine the variable to sort by 
+        const sort_input = document.querySelector('#sort-variable');
+        const sort_variable = sort_input.checked;
+
+        // grab the sort DESC input  
+        const sort_descending = document.querySelector('#sort-descending');
+        const sort_desc = sort_descending.checked;
 
         // function to sort the books by the number of pages
         const sortByPageNum = function sortByPageNum(bookA, bookB) {
@@ -87,13 +91,21 @@ const DOMController = function DOMController() {
             }
         };
 
-        if (sort_status) {
+        // sort by pages if sort_variable = true; alphabetically otherwise
+        sort_variable ? books.sort(sortByPageNum) : books.sort(sortAlphabetically);
+
+        // reverse the book order if the DESC option is true (checked)
+        if (sort_desc) {
+            books.reverse();
+        }
+
+        /* if (sort_variable) {
             // reverse to put in descending order
             books.sort(sortByPageNum).reverse();
         } else {
             // otherwise simply sort alphabetically
             books.sort(sortAlphabetically);
-        }
+        } */
 
         // iterate over the books and create a visual representation of each
         for (let i = 0; i < books.length; i++) {
@@ -199,10 +211,16 @@ const libraryInterface = function libraryInterface() {
     // function that re-renders books when the sorting options is changed / toggled
     function setupBookSorting() {
         // DOM references
-        const sort_input = document.querySelector('#sort-status');
+        const sort_variable = document.querySelector('#sort-variable');
+        const sort_descending = document.querySelector('#sort-descending');
 
-        // if the sort option is changed we must re-render the library
-        sort_input.addEventListener('change', () => {
+        // if the sort variable is changed we must re-render the library
+        sort_variable.addEventListener('change', () => {
+            DOMController.displayBooks(libraryManager.getBooks());
+        });
+
+        // if the sort DESC option is changed we must re-render the library
+        sort_descending.addEventListener('change', () => {
             DOMController.displayBooks(libraryManager.getBooks());
         });
     }
