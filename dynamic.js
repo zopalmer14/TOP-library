@@ -212,8 +212,6 @@ const libraryInterface = function libraryInterface() {
         checkbox.addEventListener('change', (event) => {
             // toggle the read value of the selected book -- one level up the DOM tree
             const index = event.currentTarget.parentNode.dataset.index;
-            console.log(event.currentTarget);
-            console.log(index);
             libraryManager.toggleRead(index);
         });
     };

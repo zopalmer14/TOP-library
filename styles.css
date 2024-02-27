@@ -314,6 +314,16 @@ dialog::backdrop {
     font-size: 13.33px;
 }
 
+#book-form input:valid {
+    outline: 0px;
+    border: 1px solid var(--green-accent);
+}
+
+#book-form input:invalid {
+    outline: 0px;
+    border: 1px solid red;
+}
+
 #book-form input:focus {
     outline: 0px;
     border: 1px solid blue;
