@@ -188,6 +188,9 @@ const libraryInterface = function libraryInterface() {
                 event.target.read.checked
             );
 
+            // reset the form inputs
+            add_book_form.reset(); 
+
             // now we must re-render the library 
             DOMController.displayBooks(libraryManager.getBooks());
         });
