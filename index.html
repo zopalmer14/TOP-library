@@ -25,9 +25,15 @@
     <div id="header">
         <h1>Virtual Library</h1>
         <div>
-            <label for="sort-variable">Sort - Pages
-                <input type="checkbox" name="sort-variable" id="sort-variable">
-            </label>
+            <div class="select-wrapper">
+                <select name="sort-variable" id="sort-variable">
+                    <option value="none" selected disabled hidden>Sort Variable</option>
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
+                    <option value="pages">Pages</option>
+                    <option value="read">Read</option>
+                </select>
+            </div>
             <label for="sort-descending">DESC<span class="material-icons md-18">arrow_downward</span>
                 <input type="checkbox" name="sort-descending" id="sort-descending">
             </label>

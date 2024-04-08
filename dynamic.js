@@ -63,11 +63,37 @@ const DOMController = function DOMController() {
 
         // grab the sort input and determine the variable to sort by 
         const sort_input = document.querySelector('#sort-variable');
-        const sort_variable = sort_input.checked;
+        const sort_variable = sort_input.value;
+        console.log("sort input: " + sort_input);
+        console.log("sort variable: " + sort_variable);
 
         // grab the sort DESC input  
         const sort_descending = document.querySelector('#sort-descending');
         const sort_desc = sort_descending.checked;
+
+        // SORTING FUNCTIONS
+
+        // function to sort the books by title
+        const sortByTitle = function sortByTitle(bookA, bookB) {
+            if (bookA.title < bookB.title) {
+                return -1;
+            } else if (bookA.title > bookB.title) {
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+
+        // function to sort the books by author
+        const sortByAuthor = function sortByAuthor(bookA, bookB) {
+            if (bookA.author < bookB.author) {
+                return -1;
+            } else if (bookA.author > bookB.author) {
+                return 1;
+            } else {
+                return 0;
+            }
+        };
 
         // function to sort the books by the number of pages
         const sortByPageNum = function sortByPageNum(bookA, bookB) {
@@ -80,32 +106,36 @@ const DOMController = function DOMController() {
             }
         };
 
-        // function to sort the books alphabetically
-        const sortAlphabetically = function sortAlphabetically(bookA, bookB) {
-            if (bookA.title < bookB.title) {
-                return -1;
-            } else if (bookA.title > bookB.title) {
+        // function to sort the books by read status
+        const sortByReadStatus = function sortByReadStatus(bookA, bookB) {
+            if (bookB.have_read && !bookA.have_read) {
                 return 1;
+            } else if (bookA.have_read && !bookB.have_read) {
+                return -1;
             } else {
                 return 0;
             }
         };
 
-        // sort by pages if sort_variable = true; alphabetically otherwise
-        sort_variable ? books.sort(sortByPageNum) : books.sort(sortAlphabetically);
+        // sort the books accordingly based on the value of sort_variable 
+        switch(sort_variable) {
+            case 'title': 
+                books.sort(sortByTitle);
+                break;
+            case 'author': 
+                books.sort(sortByAuthor);
+                break;
+            case 'pages': 
+                books.sort(sortByPageNum);
+                break;
+            case 'read': 
+                books.sort(sortByReadStatus);
+        }
 
         // reverse the book order if the DESC option is true (checked)
         if (sort_desc) {
             books.reverse();
         }
-
-        /* if (sort_variable) {
-            // reverse to put in descending order
-            books.sort(sortByPageNum).reverse();
-        } else {
-            // otherwise simply sort alphabetically
-            books.sort(sortAlphabetically);
-        } */
 
         // iterate over the books and create a visual representation of each
         for (let i = 0; i < books.length; i++) {
@@ -174,9 +204,30 @@ const libraryInterface = function libraryInterface() {
     // initialize and make the library dynamic / responsive
     const initializeLibrary = function initializeLibrary() {
         DOMController.displayBooks(libraryManager.getBooks());
+        styleSelectDropDown();
         setupBookAddition();
         setupBookSorting();
     };
+
+    function styleSelectDropDown() {
+        // DOM references 
+        const select_input = document.querySelector('select');
+        const select_container = document.querySelector('.select-wrapper');
+    
+        // toggle the styling when the select input is clicked
+        select_input.addEventListener('click', () => {
+            select_input.classList.toggle('showing');
+            console.log('select input is clicked');
+        })
+    
+        // if the user clicks outside the select input, remove the styling
+        window.addEventListener("click", (e) => {
+            if (!select_container.contains(e.target)) {
+                select_input.classList.remove("showing");
+                console.log('outside of select container is clicked');
+            }
+        });
+    }
 
     // function that sets up the add book functionality
     function setupBookAddition() {
