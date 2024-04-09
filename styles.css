@@ -76,6 +76,8 @@ body {
     gap: 2rem;
 }
 
+/* Read Label Styling */
+
 label.read-label {
     border-radius: 5px;
 }
@@ -102,27 +104,21 @@ input.read-input {
     margin: 0;
 }
 
-/* HEADER */
+/* HEADER Styling */
 
-#header {
-    display: flex;
-    justify-content: space-between;
-    min-width: 250px;
-}
-
-#header > h1 {
-    margin-right: 2rem;
-    font-size: 2.5rem;
-    color: var(--green-accent);
-    font-weight: bold;
-}
-
-#header > div {
+header {
     display: flex;
     gap: 1rem;
 }
 
-#header label, #header #add-book-button {
+header > h1 {
+    margin-right: 1rem;
+    color: var(--green-accent);
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+header label, header #add-book-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -140,7 +136,7 @@ input.read-input {
     transition: 0.5s ease-in-out;
 }
 
-#header label:hover {
+header label:hover {
     color: white;
     background-color: rgba(116, 153, 46, 0.5);
     border-color: rgba(116, 153, 46, 0.5);
@@ -148,21 +144,21 @@ input.read-input {
     cursor: pointer;
 }
 
-#header label:has(input:checked) {
+header label:has(input:checked) {
     color: white;
     background-color: var(--green-accent);
 }
 
-#header label:has(input:checked):hover {
+header label:has(input:checked):hover {
     filter: brightness(0.8);
     transition: 0.5s ease-in-out;
 }
 
-#header label span.material-icons.md-18 {
+header label span.material-icons.md-18 {
     font-size: 18px;
 }
 
-#header input {
+header input {
     position: absolute;
     opacity: 0;
     height: 0;
@@ -170,17 +166,17 @@ input.read-input {
     margin: 0;
 }
 
-#header #add-book-button:hover {
+header #add-book-button:hover {
     color: white;
     background-color: var(--green-accent);
     cursor: pointer;
 }
 
-#header #add-book-button:focus {
+header #add-book-button:focus {
     outline: none;
 }
 
-#header #add-book-button > div {
+header #add-book-button > div {
     box-sizing: border-box;
     position: relative;
     min-width: 20px;
@@ -191,12 +187,12 @@ input.read-input {
     transition: 0.5s ease-in-out;
 }
 
-#header #add-book-button:hover > div {
+header #add-book-button:hover > div {
     border-color: white;
     transform: rotateZ(360deg);
 }
 
-#header #add-book-button span {
+header #add-book-button span {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -206,7 +202,7 @@ input.read-input {
     transition: 0.5s ease-in-out;
 }
 
-#header #add-book-button:hover span {
+header #add-book-button:hover span {
     color: white;
 }
 
@@ -228,7 +224,7 @@ input.read-input {
     transform: translateY(-50%);
 
     pointer-events: none;
-    transition: 0.5s ease-in-out;
+    transition: 0.25s ease-in-out;
 }
 
 body .select-wrapper:has(select.showing)::after {
@@ -254,7 +250,6 @@ select {
     border: 1px solid var(--green-accent);
     border-radius: 5px;
     box-shadow: 1px 1px 3px #ccc;
-    transition: 0.5s ease-in-out;
 }
 
 body select.showing {
@@ -265,8 +260,8 @@ body select.showing {
 
 select:hover {
     color: white;
-    background-color: rgba(116, 153, 46, 0.5);
-    border-color: rgba(116, 153, 46, 0.5);
+    background-color: var(--green-accent);
+    border-color: var(--green-accent);
     user-select: none;
     cursor: pointer;
 }
