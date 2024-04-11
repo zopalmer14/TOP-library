@@ -64,8 +64,6 @@ const DOMController = function DOMController() {
         // grab the sort input and determine the variable to sort by 
         const sort_input = document.querySelector('#sort-variable');
         const sort_variable = sort_input.value;
-        console.log("sort input: " + sort_input);
-        console.log("sort variable: " + sort_variable);
 
         // grab the sort DESC input  
         const sort_descending = document.querySelector('#sort-descending');
@@ -203,11 +201,24 @@ const DOMController = function DOMController() {
 const libraryInterface = function libraryInterface() {
     // initialize and make the library dynamic / responsive
     const initializeLibrary = function initializeLibrary() {
+        storageRetrieval();
         DOMController.displayBooks(libraryManager.getBooks());
         styleSelectDropDown();
         setupBookAddition();
         setupBookSorting();
     };
+
+    function storageRetrieval() {
+        // grab the data from local storage and re-create the Book objects
+        if (!localStorage.getItem('books')) {
+            console.log('Error: books data was not found in localStorage');
+        } else {
+            const books = JSON.parse(localStorage.getItem('books'));
+            books.forEach((book) => {
+                libraryManager.addBook(book.title, book.author, book.num_pages, book.have_read);
+            });
+        }
+    }
 
     function styleSelectDropDown() {
         // DOM references 
@@ -217,14 +228,12 @@ const libraryInterface = function libraryInterface() {
         // toggle the styling when the select input is clicked
         select_input.addEventListener('click', () => {
             select_input.classList.toggle('showing');
-            console.log('select input is clicked');
         })
     
         // if the user clicks outside the select input, remove the styling
         window.addEventListener("click", (e) => {
             if (!select_container.contains(e.target)) {
                 select_input.classList.remove("showing");
-                console.log('outside of select container is clicked');
             }
         });
     }
@@ -250,6 +259,9 @@ const libraryInterface = function libraryInterface() {
                 event.target.pages.value, 
                 event.target.read.checked
             );
+
+            // update the local storage 
+            localStorage.setItem('books', JSON.stringify(libraryManager.getBooks()));
 
             // reset the form inputs
             add_book_form.reset(); 
@@ -291,6 +303,9 @@ const libraryInterface = function libraryInterface() {
             // remove the book -- one level up the DOM tree -- from the library
             const index = event.target.parentNode.dataset.index;
             libraryManager.removeBook(index);
+
+            // update the local storage 
+            localStorage.setItem('books', JSON.stringify(libraryManager.getBooks()));
             
             // now we must re-render the library
             DOMController.displayBooks(libraryManager.getBooks());
@@ -300,35 +315,5 @@ const libraryInterface = function libraryInterface() {
     return { initializeLibrary, setupReadCheckbox, setupRemoveButton }
 }();
 
-
 // debug / run script
-
-libraryManager.addBook (
-    'The Hobbit',
-    'J.R.R. Tolkien', 
-    295, 
-    false
-);
-
-libraryManager.addBook (
-    'The Way of Kings', 
-    'Brandon Sanderson', 
-    1093, 
-    true
-);
-
-libraryManager.addBook (
-    'The Telling', 
-    'Ursula K. Le Guin', 
-    263, 
-    true
-);
-
-libraryManager.addBook (
-    'Reaper Man', 
-    'Terry Pratchett', 
-    453, 
-    false
-);
-
 libraryInterface.initializeLibrary();
