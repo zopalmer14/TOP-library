@@ -241,9 +241,9 @@ const libraryInterface = function libraryInterface() {
     // function that sets up the add book functionality
     function setupBookAddition() {
         // DOM references
-        const add_book_button = document.querySelector('#add-book-button');
+        const add_book_button = document.querySelector('header button');
         const dialog = document.querySelector("dialog");
-        const add_book_form = document.querySelector('#book-form');
+        const add_book_form = document.querySelector('form');
 
         // setup the add_book dialog / form 
         add_book_button.addEventListener('click', () => {

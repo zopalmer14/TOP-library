@@ -10,15 +10,15 @@
 </head>
 <body>
     <dialog>
-        <form method="dialog" name="book-form" id="book-form">
-            <div id="form-header">Add New Book</div>
-            <input required type="text" placeholder="Title" name="title" id="book-title"/>
-            <input required type="text" placeholder="Author" name="author" id="author"/>
-            <input required type="number" placeholder="Pages" name="pages" id="num-pages"/>
+        <form method="dialog" name="book-form">
+            <h2>Add New Book</h2>
+            <input required type="text" placeholder="Title" name="title"/>
+            <input required type="text" placeholder="Author" name="author"/>
+            <input required type="number" placeholder="Pages" name="pages"/>
             <label class="read-label" for="have-read">Read
                 <input class="read-input" type="checkbox" name="read" id="have-read"/>
             </label>
-            <button id="submit-button">Submit</button>
+            <button>Submit</button>
         </form>
     </dialog>
 
@@ -37,7 +37,7 @@
             <label for="sort-descending">DESC<span class="material-icons md-18">arrow_downward</span>
                 <input type="checkbox" name="sort-descending" id="sort-descending">
             </label>
-            <button id="add-book-button"><div><span>+</span></div>Add Book</button>
+            <button><div><span>+</span></div>Add Book</button>
         </div>
     </header>
 

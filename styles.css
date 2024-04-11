@@ -51,7 +51,7 @@ table {
 	border-spacing: 0;
 }
 
-/* Element Styling */
+/* Base Styling */
 
 :root {
     --green-accent: #74992E;
@@ -59,9 +59,10 @@ table {
     --gray-accent: whitesmoke;
 }
 
-body, button {
+body, button, input {
     font-family: Garamond, serif;
     font-size: 16px;
+    line-height: normal;
 }
 
 body {
@@ -76,35 +77,86 @@ body {
     gap: 2rem;
 }
 
-/* Read Label Styling */
+/* Add Book Form Styling */
 
-label.read-label {
+dialog {
+    background-color: whitesmoke;
+    padding: 0;
+    border: 0;
     border-radius: 5px;
 }
 
-label.read-label:hover {
-    cursor: pointer;
+dialog::backdrop {
+    backdrop-filter: blur(0.25rem);
 }
 
-label.read-label:has(input:checked) {
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+
+    min-width: 20vh;
+    min-height: 30vh;
+    padding: 2rem;
+} 
+
+form > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form h2 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+form input {
+    outline: 0;
+    padding: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+form input::placeholder {
+    color: gray;
+}
+
+form input:valid {
+    border-color: var(--green-accent);
+}
+
+form input:invalid {
+    border-color: red;
+}
+
+form input:focus {
+    border-color: blue;
+}
+
+form label, form button {
+    padding: 1rem 0;
+    font-weight: bold;
+    transition: 0.5s ease-in-out;
+}
+
+form label:hover {
+    filter: brightness(0.8);
+}
+
+form button {
+    background-color: whitesmoke;
+    border: 1px solid var(--green-accent);
+    border-radius: 5px;
+} 
+
+form button:hover {
     background-color: var(--green-accent);
-    transition: 0.5s;
-}
+    cursor: pointer;
+} 
 
-label.read-label:has(input:not(:checked)) {
-    background-color: red;
-    transition: 0.5s;
-}
-
-input.read-input {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
-    margin: 0;
-}
-
-/* HEADER Styling */
+/* Header Styling */
 
 header {
     display: flex;
@@ -122,11 +174,73 @@ header > div {
     gap: 1rem;
 }
 
-header label, header #add-book-button {
+header .select-wrapper {
+    min-width: 130px;
+    position: relative;
+}
+  
+header .select-wrapper::after {
+    content: "▼";
+    color: var(--green-accent);
+    font-size: 1rem;
+    
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+
+    pointer-events: none;
+    transition: 0.25s ease-in-out;
+}
+
+body header .select-wrapper:has(select.showing)::after {
+    color: var(--green-accent);
+}
+
+header .select-wrapper:has(select:hover)::after {
+    color: white;
+}
+
+header select {
+    color: var(--green-accent);
+    font-family: inherit;
+    font-size: 100%;
+
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0.5rem 1rem;
+
+    appearance: none;
+    border: 1px solid var(--green-accent);
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px #ccc;
+    transition: 0.25s ease-in-out;
+}
+
+body header select.showing {
+    color: var(--green-accent);
+    background-color: white;
+    border-color: var(--green-accent);
+}
+
+header select:hover {
+    color: white;
+    background-color: var(--green-accent);
+    border-color: var(--green-accent);
+    user-select: none;
+    cursor: pointer;
+}
+
+header select:focus {
+    outline: none;
+}
+
+header label, header button {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.25rem;
 
     padding: 0.5rem 1rem;
     background-color: white;
@@ -156,7 +270,6 @@ header label:has(input:checked) {
 
 header label:has(input:checked):hover {
     filter: brightness(0.8);
-    transition: 0.5s ease-in-out;
 }
 
 header label span.material-icons.md-18 {
@@ -171,33 +284,34 @@ header input {
     margin: 0;
 }
 
-header #add-book-button:hover {
+header button:hover {
     color: white;
     background-color: var(--green-accent);
     cursor: pointer;
 }
 
-header #add-book-button:focus {
+header button:focus {
     outline: none;
 }
 
-header #add-book-button > div {
+header button > div {
     box-sizing: border-box;
     position: relative;
     min-width: 20px;
     min-height: 20px;
+    margin-right: 0.25rem;
 
     border: 1px solid var(--green-accent);
     border-radius: 50%;
     transition: 0.5s ease-in-out;
 }
 
-header #add-book-button:hover > div {
+header button:hover > div {
     border-color: white;
     transform: rotateZ(360deg);
 }
 
-header #add-book-button span {
+header button span {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -207,73 +321,8 @@ header #add-book-button span {
     transition: 0.5s ease-in-out;
 }
 
-header #add-book-button:hover span {
+header button:hover span {
     color: white;
-}
-
-/* Select Input Styling */
-
-.select-wrapper {
-    min-width: 130px;
-    position: relative;
-}
-  
-.select-wrapper::after {
-    content: "▼";
-    color: var(--green-accent);
-    font-size: 1rem;
-    
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-
-    pointer-events: none;
-    transition: 0.25s ease-in-out;
-}
-
-body .select-wrapper:has(select.showing)::after {
-    color: var(--green-accent);
-}
-
-.select-wrapper:has(select:hover)::after {
-    color: white;
-}
-
-select {
-    color: var(--green-accent);
-    font-family: inherit;
-    font-size: 100%;
-
-    display: block;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0.5rem 1rem;
-
-    appearance: none;
-    border: 1px solid var(--green-accent);
-    border-radius: 5px;
-    box-shadow: 1px 1px 3px #ccc;
-    transition: 0.25s ease-in-out;
-}
-
-body select.showing {
-    color: var(--green-accent);
-    background-color: white;
-    border-color: var(--green-accent);
-}
-
-select:hover {
-    color: white;
-    background-color: var(--green-accent);
-    border-color: var(--green-accent);
-    user-select: none;
-    cursor: pointer;
-}
-
-select:focus {
-    outline: none;
 }
 
 /* LIBRARY GRID */
@@ -338,89 +387,33 @@ select:focus {
     transition: ease-in-out 0.25s;
 }
 
-/* DIALOG / FORM STYLING */
+/* Read Label Styling */
 
-dialog {
-    background-color: whitesmoke;
-    padding: 0px;
-    border: 0px;
+label.read-label {
     border-radius: 5px;
 }
 
-dialog::backdrop {
-    backdrop-filter: blur(0.25rem);
-}
-
-#book-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    gap: 1rem;
-
-    width: 25vh;
-    height: 30vh;
-    padding: 2rem;
-} 
-
-#book-form > * {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#book-form #form-header {
-    font-size: 1.25rem;
-    font-weight: bold;
-}
-
-#book-form input {
-    padding: 0.5rem;
-    border: 1px solid white;
-    border-radius: 5px;
-}
-
-#book-form input::placeholder {
-    color: gray;
-    font-size: 13.33px;
-}
-
-#book-form input:valid {
-    outline: 0px;
-    border: 1px solid var(--green-accent);
-}
-
-#book-form input:invalid {
-    outline: 0px;
-    border: 1px solid red;
-}
-
-#book-form input:focus {
-    outline: 0px;
-    border: 1px solid blue;
-}
-
-#book-form label, #book-form button {
-    padding: 1rem 0;
-    font-weight: bold;
-}
-
-#book-form label:hover {
-    filter: brightness(0.8);
-    transition: 0.5s ease-in-out;
-}
-
-#book-form #submit-button {
-    background-color: whitesmoke;
-    border: 1px solid var(--green-accent);
-    border-radius: 5px;
-} 
-
-#book-form #submit-button:hover {
-    background-color: var(--green-accent);
+label.read-label:hover {
     cursor: pointer;
+}
+
+label.read-label:has(input:checked) {
+    background-color: var(--green-accent);
     transition: 0.5s;
-} 
+}
+
+label.read-label:has(input:not(:checked)) {
+    background-color: red;
+    transition: 0.5s;
+}
+
+input.read-input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    margin: 0;
+}
 
 /* Media Queries */
 
