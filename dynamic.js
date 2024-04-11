@@ -56,13 +56,13 @@ const libraryManager = function libraryManager() {
 const DOMController = function DOMController() {
     const displayBooks = function displayBooks(books) {
         // grab the container that holds all the books
-        const grid_container = document.querySelector('#grid-container');
+        const library_grid = document.querySelector('.library-grid');
 
         // remove all children in case of re-render
-        grid_container.replaceChildren();
+        library_grid.replaceChildren();
 
         // grab the sort input and determine the variable to sort by 
-        const sort_input = document.querySelector('#sort-variable');
+        const sort_input = document.querySelector('select');
         const sort_variable = sort_input.value;
 
         // grab the sort DESC input  
@@ -189,7 +189,7 @@ const DOMController = function DOMController() {
             }
 
             // append the book_container to the library grid
-            grid_container.appendChild(book_container);
+            library_grid.appendChild(book_container);
         }
     };
 
@@ -274,7 +274,7 @@ const libraryInterface = function libraryInterface() {
     // function that re-renders books when the sorting options is changed / toggled
     function setupBookSorting() {
         // DOM references
-        const sort_variable = document.querySelector('#sort-variable');
+        const sort_variable = document.querySelector('select');
         const sort_descending = document.querySelector('#sort-descending');
 
         // if the sort variable is changed we must re-render the library
