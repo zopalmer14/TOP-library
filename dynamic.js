@@ -202,6 +202,7 @@ const libraryInterface = function libraryInterface() {
     // initialize and make the library dynamic / responsive
     const initializeLibrary = function initializeLibrary() {
         storageRetrieval();
+        setupFormValidation();
         DOMController.displayBooks(libraryManager.getBooks());
         styleSelectDropDown();
         setupBookAddition();
@@ -218,6 +219,21 @@ const libraryInterface = function libraryInterface() {
                 libraryManager.addBook(book.title, book.author, book.num_pages, book.have_read);
             });
         }
+    }
+
+    function setupFormValidation() {
+        // DOM references
+        const author_input = document.querySelector('form input[name="author"]');
+        
+        // create custom form validation for the author input
+        author_input.addEventListener("input", () => {
+            // if the field contains a number in it send a special error message
+            if (/\d/.test(author_input.value)) {
+                author_input.setCustomValidity("The author's name cannot contain a number");
+            } else {
+                author_input.setCustomValidity("");
+            }
+        });
     }
 
     function styleSelectDropDown() {
